@@ -8,8 +8,9 @@
         <attr name="velocityClamp" format="float"/>
         <attr name="flingable" format="boolean"/>
         <attr name="grooves" format="boolean"/>
-        <attr name="enlargeSelectedIcon" format="boolean"/>
+        <attr name="unselectScaleOffset" format="float"/>
         <attr name="notch" format="integer"/>
+        <attr name="distancePercent" format="float"/>
     </declare-styleable>
 
 

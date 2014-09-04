@@ -30,14 +30,14 @@ public class FortuneItem {
         this.value = value;
     }
 
-    public double drawItem(Canvas canvas, double radius, double radians, float totalValue) {
+    public double drawItem(Canvas canvas, double radius, double radians, float totalValue, float sizeMultipler) {
 
         double incrementRadians = Math.PI * 2 * (value/totalValue);
 
         double circum = Math.PI * radius * 2;
         double dialogalSize = circum * (value/totalValue);
         double radAspect = Math.atan(image.getHeight()/(double)image.getWidth());
-        int imageSizeX = (int)(dialogalSize * Math.cos(radAspect));
+        int imageSizeX = (int)(dialogalSize * Math.cos(radAspect) * sizeMultipler);
 
         if(type == DialItemType.Image) {
             // Center of circle placement

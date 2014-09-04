@@ -24,12 +24,14 @@ public class FortuneView extends View {
     GrooveListener grooveListener;
     public double spinSpeed = 1; // Multipler for spin speed. ie .5, half the speed of finger
     public double frameRate = 40; // Frames per second
-    public double friction = 10; // Slows down friction radians per second
-    public double velocityClamp = 7;  // clamps max fling to radians per second
+    public double friction = 5; // Slows down friction radians per second
+    public double velocityClamp = 15;  // clamps max fling to radians per second
     public boolean flingable = true; // Decides if the user can fling
     public boolean grooves = true; // Locks at correct angles
     public int notch = 90; // Where the notch is located in degrees
-    public boolean largeSelectedIcon = false; // Enlarges the selected icon
+    public float unselectScaleOffset = .8f; // Scale offset of unselected icons
+    public float distancePercent = 1; // Float from 0 - 1 (should be) to decide how close to the edge the icons show
+    public float centripetalPercent = .25f;
 
     Canvas mCanvas;
 
@@ -44,12 +46,13 @@ public class FortuneView extends View {
         try {
             spinSpeed = a.getFloat(R.styleable.FortuneView_spinSpeed, 1);
             frameRate = a.getFloat(R.styleable.FortuneView_frameRate, 40);
-            friction = a.getFloat(R.styleable.FortuneView_friction, 10);
-            velocityClamp = a.getFloat(R.styleable.FortuneView_velocityClamp, 7);
+            friction = a.getFloat(R.styleable.FortuneView_friction, 5);
+            velocityClamp = a.getFloat(R.styleable.FortuneView_velocityClamp, 15);
             flingable = a.getBoolean(R.styleable.FortuneView_flingable, true);
             grooves = a.getBoolean(R.styleable.FortuneView_grooves, true);
-            largeSelectedIcon = a.getBoolean(R.styleable.FortuneView_enlargeSelectedIcon, false);
+            unselectScaleOffset = a.getFloat(R.styleable.FortuneView_unselectScaleOffset, 1f);
             notch = a.getInteger(R.styleable.FortuneView_notch, 90);
+            distancePercent = a.getFloat(R.styleable.FortuneView_distancePercent, 1);
         } finally {
             a.recycle();
         }
@@ -96,9 +99,11 @@ public class FortuneView extends View {
         // Add groove notch
         radians -= notch * Math.PI / 180;
 
+        double rad = radius * (distancePercent - (centripetalPercent * swipeVelocity.getCentripetalPercent()));
         for(int i = 0 ; i < fortuneItems.size(); i ++) {
             // Draw dialItem
-            radians = fortuneItems.get(i).drawItem(canvas, radius, radians, getTotalValue());
+            radians = fortuneItems.get(i).drawItem(canvas, rad  * unselectScaleOffset, radians, getTotalValue(), (i == getSelectedIndex() ? 1f/unselectScaleOffset : 1f));
+
         }
     }
 
@@ -126,6 +131,7 @@ public class FortuneView extends View {
                     invalidate();
                     startFling();
                 } else {
+                    swipeVelocity.velocity = 0;
                     if(grooves) {
                         // Lock to a groove
                         lockToGroove();
@@ -259,6 +265,15 @@ public class FortuneView extends View {
                 this.time = time;
                 this.offset = offset;
             }
+        }
+
+        public float getCentripetalPercent() {
+            float velo = (float)Math.abs(velocity);
+            if(velo == 0)
+                return 0;
+            if(velo < 10)
+                return velo/10f;
+            return 1;
         }
     }
 
