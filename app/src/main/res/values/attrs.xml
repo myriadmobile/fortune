@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FortuneView">
+        <attr name="spinSpeed" format="float"/>
+        <attr name="frameRate" format="float"/>
+        <attr name="friction" format="float"/>
+        <attr name="velocityClamp" format="float"/>
+        <attr name="flingable" format="boolean"/>
+        <attr name="grooves" format="boolean"/>
+        <attr name="enlargeSelectedIcon" format="boolean"/>
+        <attr name="notch" format="integer"/>
+    </declare-styleable>
+
+
+
+</resources>

@@ -1,0 +1,13 @@
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <com.myriadmobile.fortune.FortuneView
+        android:id="@+id/dialView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:enlargeSelectedIcon="false"/>
+
+</FrameLayout>
