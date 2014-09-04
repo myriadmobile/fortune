@@ -2,7 +2,7 @@
 <resources>
 
     <declare-styleable name="FortuneView">
-        <attr name="spinSpeed" format="float"/>
+        <attr name="spinSensitivity" format="float"/>
         <attr name="frameRate" format="float"/>
         <attr name="friction" format="float"/>
         <attr name="velocityClamp" format="float"/>
@@ -11,6 +11,7 @@
         <attr name="unselectScaleOffset" format="float"/>
         <attr name="notch" format="integer"/>
         <attr name="distancePercent" format="float"/>
+        <attr name="centripetalPercent" format="float"/>
     </declare-styleable>
 
 

@@ -23,7 +23,7 @@ public class FortuneView extends View {
     double radius;
     double radianOffset = 0;
     GrooveListener grooveListener;
-    public double spinSpeed = 1; // Multipler for spin speed. ie .5, half the speed of finger
+    public double spinSensitivity = 1; // Multipler for spin speed. ie .5, half the speed of finger
     public double frameRate = 40; // Frames per second
     public double friction = 5; // Slows down friction radians per second
     public double velocityClamp = 15;  // clamps max fling to radians per second
@@ -32,7 +32,7 @@ public class FortuneView extends View {
     public int notch = 90; // Where the notch is located in degrees
     public float unselectScaleOffset = .8f; // Scale offset of unselected icons
     public float distancePercent = 1; // Float from 0 - 1 (should be) to decide how close to the edge the icons show
-    public float centripetalPercent = .25f;
+    public float centripetalPercent = .25f; // Float from 0 - distancePercent amount of Centripetal force affects you
     public int lastGrooveIndex = 0;
 
     Canvas mCanvas;
@@ -46,7 +46,7 @@ public class FortuneView extends View {
                 0, 0);
 
         try {
-            spinSpeed = a.getFloat(R.styleable.FortuneView_spinSpeed, 1);
+            spinSensitivity = a.getFloat(R.styleable.FortuneView_spinSensitivity, 1);
             frameRate = a.getFloat(R.styleable.FortuneView_frameRate, 40);
             friction = a.getFloat(R.styleable.FortuneView_friction, 5);
             velocityClamp = a.getFloat(R.styleable.FortuneView_velocityClamp, 15);
@@ -55,6 +55,7 @@ public class FortuneView extends View {
             unselectScaleOffset = a.getFloat(R.styleable.FortuneView_unselectScaleOffset, 1f);
             notch = a.getInteger(R.styleable.FortuneView_notch, 90);
             distancePercent = a.getFloat(R.styleable.FortuneView_distancePercent, 1);
+            centripetalPercent = a.getFloat(R.styleable.FortuneView_centripetalPercent, .25f);
         } finally {
             a.recycle();
         }
@@ -200,9 +201,9 @@ public class FortuneView extends View {
                 case MotionEvent.ACTION_MOVE:
 
                     if((diffX > 0 && diffY < 0) || ((diffX < 0 && diffY > 0)))
-                        radianOffset = lastOffset + (radianStart - radianNew) * spinSpeed;
+                        radianOffset = lastOffset + (radianStart - radianNew) * spinSensitivity;
                     else
-                        radianOffset = lastOffset - (radianStart - radianNew) * spinSpeed;
+                        radianOffset = lastOffset - (radianStart - radianNew) * spinSensitivity;
 
                     radianStart = radianNew;
                     lastOffset = radianOffset;
