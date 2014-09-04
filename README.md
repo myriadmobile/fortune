@@ -24,7 +24,7 @@ Main Features
 ### Customizable UI Experience
 
 Allows for simple user input touch control.  Custom settings of flingable,
-spin sensitivity, frame rate, friction (Speed fling slows down), centripetal force affects, velocity cap, 
+spin sensitivity, frame rate, friction (speed in which fling slows down), centripetal force affects, velocity cap, 
 grooves, unselected/selected image scales, notch location (top, bottom, right, left), 
 and location of the images in respect to the edges.
 
