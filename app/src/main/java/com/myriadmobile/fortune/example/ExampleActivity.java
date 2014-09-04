@@ -45,8 +45,6 @@ public class ExampleActivity extends Activity {
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_save), FortuneItem.HingeType.Fixed));
         */
 
-
-
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
@@ -55,8 +53,6 @@ public class ExampleActivity extends Activity {
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
-
-
 
         /*
         dis.add(new DialItem(Color.BLACK, 1));

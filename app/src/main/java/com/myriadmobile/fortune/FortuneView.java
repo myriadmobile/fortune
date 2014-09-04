@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -32,6 +33,7 @@ public class FortuneView extends View {
     public float unselectScaleOffset = .8f; // Scale offset of unselected icons
     public float distancePercent = 1; // Float from 0 - 1 (should be) to decide how close to the edge the icons show
     public float centripetalPercent = .25f;
+    public int lastGrooveIndex = 0;
 
     Canvas mCanvas;
 
@@ -104,6 +106,14 @@ public class FortuneView extends View {
             // Draw dialItem
             radians = fortuneItems.get(i).drawItem(canvas, rad  * unselectScaleOffset, radians, getTotalValue(), (i == getSelectedIndex() ? 1f/unselectScaleOffset : 1f));
 
+        }
+
+        // Notify Listener
+        if(getSelectedIndex() != lastGrooveIndex) {
+            lastGrooveIndex = getSelectedIndex();
+            //Log.d("Groove", "Change: " + lastGrooveIndex);
+            if(grooveListener != null)
+                grooveListener.onGrooveChange(lastGrooveIndex);
         }
     }
 
@@ -295,12 +305,6 @@ public class FortuneView extends View {
                 } else {
                     radianOffset += diff;
                     invalidate();
-
-
-                    // Notify Listener
-                    if(grooveListener != null) {
-                        grooveListener.onGrooveChange(getSelectedIndex());
-                    }
                 }
             }
         }

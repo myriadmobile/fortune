@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.myriadmobile.customviews"
+        applicationId "com.myriadmobile.fortune"
         minSdkVersion 15
         targetSdkVersion 19
         versionCode 1
