@@ -14,11 +14,20 @@ public class FortuneItem {
     public Bitmap image;
     public int color;
     public enum DialItemType {Image, Section};
+    public enum HingeType {Fixed, Hinged};
     public DialItemType type;
+    public HingeType hinge = HingeType.Hinged;
     public float value;
     Matrix matrix = new Matrix();
 
     public FortuneItem(Bitmap image) {
+        this.image = image;
+        type = DialItemType.Image;
+        value = 1;
+    }
+
+    public FortuneItem(Bitmap image, HingeType hinge) {
+        this.hinge = hinge;
         this.image = image;
         type = DialItemType.Image;
         value = 1;
@@ -48,9 +57,12 @@ public class FortuneItem {
             int bmpCenterY = imageSizeX * (image.getHeight() / image.getWidth()) / 2;
 
             matrix.reset();
-
+            if(hinge == HingeType.Fixed) {
+                matrix.postRotate((float)(radians / Math.PI * 180), image.getWidth()/2, image.getHeight()/2);
+            }
             matrix.postScale(imageSizeX / (float) image.getWidth(), imageSizeX / (float) image.getWidth());
             matrix.postTranslate(canvas.getWidth() / 2 + centerX - bmpCenterX, canvas.getHeight() / 2 + centerY - bmpCenterY);
+
 
             canvas.drawBitmap(image, matrix, null);
         } else {

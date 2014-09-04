@@ -34,6 +34,19 @@ public class ExampleActivity extends Activity {
         dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_save)));
         */
 
+        /*
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_always_landscape_portrait), FortuneItem.HingeType.Fixed));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_add), FortuneItem.HingeType.Fixed));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_agenda), FortuneItem.HingeType.Fixed));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_camera), FortuneItem.HingeType.Fixed));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_compass), FortuneItem.HingeType.Fixed));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_help), FortuneItem.HingeType.Fixed));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_mapmode), FortuneItem.HingeType.Fixed));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_save), FortuneItem.HingeType.Fixed));
+        */
+
+
+
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
@@ -42,6 +55,7 @@ public class ExampleActivity extends Activity {
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.black)));
+
 
 
         /*
