@@ -2,7 +2,10 @@ package com.myriadmobile.fortune;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -23,6 +26,10 @@ public class FortuneView extends View {
     double radius;
     double radianOffset = 0;
     GrooveListener grooveListener;
+    int lastGrooveIndex = 0;
+    Matrix matrix = new Matrix();
+
+    // Settings
     public double spinSensitivity = 1; // Multipler for spin speed. ie .5, half the speed of finger
     public double frameRate = 40; // Frames per second
     public double friction = 5; // Slows down friction radians per second
@@ -31,9 +38,13 @@ public class FortuneView extends View {
     public boolean grooves = true; // Locks at correct angles
     public int notch = 90; // Where the notch is located in degrees
     public float unselectScaleOffset = .8f; // Scale offset of unselected icons
-    public float distancePercent = 1; // Float from 0 - 1 (should be) to decide how close to the edge the icons show
+    public float distanceScale = 1; // Float from 0 - 1 (should be) to decide how close to the edge the icons show
     public float centripetalPercent = .25f; // Float from 0 - distancePercent amount of Centripetal force affects you
-    public int lastGrooveIndex = 0;
+    public int backgroundResourceId = -1; // Resource id of the background
+    public float backgroundScale = 1; // Scale of the background image
+    public boolean backgroundCentripetalForce = false;  // Does centripetal force act on the background
+    public FortuneItem.HingeType backgroundHinge = FortuneItem.HingeType.Fixed;
+
 
     Canvas mCanvas;
 
@@ -54,8 +65,16 @@ public class FortuneView extends View {
             grooves = a.getBoolean(R.styleable.FortuneView_grooves, true);
             unselectScaleOffset = a.getFloat(R.styleable.FortuneView_unselectScaleOffset, 1f);
             notch = a.getInteger(R.styleable.FortuneView_notch, 90);
-            distancePercent = a.getFloat(R.styleable.FortuneView_distancePercent, 1);
+            distanceScale = a.getFloat(R.styleable.FortuneView_distanceScale, 1);
             centripetalPercent = a.getFloat(R.styleable.FortuneView_centripetalPercent, .25f);
+            backgroundResourceId = a.getResourceId(R.styleable.FortuneView_background, -1);
+            if(a.getInteger(R.styleable.FortuneView_backgroundHinge, 0) == 0) {
+                backgroundHinge = FortuneItem.HingeType.Fixed;
+            } else {
+                backgroundHinge = FortuneItem.HingeType.Hinged;
+            }
+            backgroundScale = a.getFloat(R.styleable.FortuneView_backgroundScale, 1);
+            backgroundCentripetalForce = a.getBoolean(R.styleable.FortuneView_backgroundCentripetalForce, false);
         } finally {
             a.recycle();
         }
@@ -97,12 +116,35 @@ public class FortuneView extends View {
         }
         super.onDraw(canvas);
 
+        // Offset radians
         double radians = radianOffset;
+        double centripitalForceAmount = (centripetalPercent * swipeVelocity.getCentripetalPercent());
 
         // Add groove notch
         radians -= notch * Math.PI / 180;
 
-        double rad = radius * (distancePercent - (centripetalPercent * swipeVelocity.getCentripetalPercent()));
+        // Add Background to the canvas.
+        if(backgroundResourceId != -1) {
+
+            Bitmap backgroundImage = BitmapFactory.decodeResource(getResources(), backgroundResourceId);
+            int smallSide = (int)((canvas.getWidth() > canvas.getHeight() ? canvas.getHeight() : canvas.getWidth()) *
+                    (backgroundScale - (centripitalForceAmount * (backgroundCentripetalForce ? 1 : 0))));
+
+            // Add background image
+            int backgroundX = smallSide / 2;
+            int backgroundY = smallSide * (backgroundImage.getHeight() / backgroundImage.getWidth()) / 2;
+
+            matrix.reset();
+            if(backgroundHinge == FortuneItem.HingeType.Fixed) {
+                matrix.postRotate((float)(radians / Math.PI * 180), backgroundImage.getWidth()/2, backgroundImage.getHeight()/2);
+            }
+            matrix.postScale(smallSide / (float) backgroundImage.getWidth(), smallSide / (float) backgroundImage.getWidth());
+            matrix.postTranslate(canvas.getWidth() / 2 - backgroundX, canvas.getHeight() / 2 - backgroundY);
+
+            canvas.drawBitmap(backgroundImage, matrix, null);
+        }
+
+        double rad = radius * (distanceScale - centripitalForceAmount);
         for(int i = 0 ; i < fortuneItems.size(); i ++) {
             // Draw dialItem
             radians = fortuneItems.get(i).drawItem(canvas, rad  * unselectScaleOffset, radians, getTotalValue(), (i == getSelectedIndex() ? 1f/unselectScaleOffset : 1f));

@@ -10,8 +10,15 @@
         <attr name="grooves" format="boolean"/>
         <attr name="unselectScaleOffset" format="float"/>
         <attr name="notch" format="integer"/>
-        <attr name="distancePercent" format="float"/>
+        <attr name="distanceScale" format="float"/>
         <attr name="centripetalPercent" format="float"/>
+        <attr name="background" format="integer"/>
+        <attr name="backgroundHinge" format="enum">
+            <enum name="fixed" value="0"/>
+            <enum name="hinge" value="1"/>
+        </attr>
+        <attr name="backgroundScale" format="float"/>
+        <attr name="backgroundCentripetalForce" format="boolean"/>
     </declare-styleable>
 
 

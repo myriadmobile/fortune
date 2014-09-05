@@ -25,14 +25,13 @@ Main Features
 
 Allows for simple user input touch control.  Custom settings of flingable,
 spin sensitivity, frame rate, friction (speed in which fling slows down), centripetal force affects, velocity cap, 
-grooves, unselected/selected image scales, notch location (top, bottom, right, left), 
+grooves, unselected/selected image scales, notch location (top, bottom, right, left), background image, background forces,
 and location of the images in respect to the edges.
 
 GIF Coming Soon!
 
 ### Planned Features
 
-+ Backgrounds
 + Pragmatically setting Fortune location
 + Sectional items like pie graphs
 + Item Overflow (When more fortune items exists than the ability to show on the screen)
