@@ -20,6 +20,7 @@ Main Features
 + Customizable sizing with selected and unselected items
 + Grooves or Notchs that allow the user to snap to a certain item
 + Deeply customizable from image placement and hinge types to applying centripetal forces
++ Easy public functions and listeners to know and tell the wheel what to do
 
 ### Customizable UI Experience
 
@@ -32,7 +33,6 @@ GIF Coming Soon!
 
 ### Planned Features
 
-+ Pragmatically setting Fortune location
 + Sectional items like pie graphs
 + Item Overflow (When more fortune items exists than the ability to show on the screen)
 
