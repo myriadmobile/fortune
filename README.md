@@ -1,4 +1,4 @@
-Fortune
+![Fortune](https://github.com/myriadmobile/fortune/raw/master/res/fortune_banner.png)
 =======
 
 A fun, spinnable, flingable, wheel selector View for Android
@@ -24,7 +24,7 @@ Main Features
 ### Customizable UI Experience
 
 Allows for simple user input touch control.  Custom settings of flingable,
-spin sensitivity, frame rate, friction (speed in which fling slows down), centripetal force affects, velocity cap, 
+spin sensitivity, frame rate, friction (speed in which fling slows down), centripetal force affects, velocity cap,
 grooves, unselected/selected image scales, notch location (top, bottom, right, left), background image, background forces,
 and location of the images in respect to the edges.
 
@@ -35,6 +35,8 @@ GIF Coming Soon!
 + Pragmatically setting Fortune location
 + Sectional items like pie graphs
 + Item Overflow (When more fortune items exists than the ability to show on the screen)
+
+![Fortune](https://github.com/myriadmobile/fortune/raw/master/res/fortune.png)
 
 License
 -------
@@ -60,6 +62,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-
