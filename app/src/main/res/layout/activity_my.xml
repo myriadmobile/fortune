@@ -11,6 +11,13 @@
         android:layout_gravity="center"
         custom:unselectScaleOffset=".8"
         custom:selectScaleOffset="1.2"
-        custom:centripetalPercent="-.25"/>
+        custom:centripetalPercent=".25"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="Random"
+        android:id="@+id/btRandom"/>
 
 </FrameLayout>

@@ -48,6 +48,7 @@ public class FortuneItem {
         double dialogalSize = circum * (value/totalValue);
         double radAspect = Math.atan(image.getHeight()/(double)image.getWidth());
         int imageNewWidth = (int)(dialogalSize * Math.cos(radAspect) * sizeMultipler);
+        int imageNewHeight = (int)(dialogalSize * Math.sin(radAspect) * sizeMultipler);
 
         // Is the imagewidth to big?
         if(radius > (canvas.getHeight() > canvas.getWidth() ? canvas.getWidth() : canvas.getHeight())/2) {
@@ -67,10 +68,10 @@ public class FortuneItem {
         if(type == DialItemType.Image) {
             // Center of circle placement
             int centerX = (int) (Math.cos(radians) * (radius - imageNewWidth/2));
-            int centerY = (int) (Math.sin(radians) * (radius - imageNewWidth/2));
+            int centerY = (int) (Math.sin(radians) * (radius - imageNewHeight/2));
 
             int bmpCenterX = imageNewWidth / 2;
-            int bmpCenterY = imageNewWidth * (image.getHeight() / image.getWidth()) / 2;
+            int bmpCenterY = imageNewHeight * (image.getHeight() / image.getWidth()) / 2;
 
             matrix.reset();
             if(hinge == HingeType.Fixed) {

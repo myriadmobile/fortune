@@ -163,7 +163,7 @@ public class FortuneView extends View {
         }
     }
 
-    public float getTotalValue() {
+    private float getTotalValue() {
         float total = 0;
         for(FortuneItem di : fortuneItems)
             total += di.value;
@@ -197,10 +197,11 @@ public class FortuneView extends View {
         }
     };
 
-    public void startFling() {
+    private void startFling() {
         // Not manually swiping
         if(!swipeVelocity.active) {
             Handler han = new Handler();
+            han.removeCallbacks(flingRunnable);
             han.postDelayed(flingRunnable, (long)(1000/frameRate));
         }
     }
@@ -357,6 +358,9 @@ public class FortuneView extends View {
     };
 
     public int getSelectedIndex() {
+        if(fortuneItems.size() == 0)
+            return 0;
+
         double offset = radianOffset;
         if(offset < 0) {
             offset -= Math.PI / fortuneItems.size();
@@ -369,15 +373,16 @@ public class FortuneView extends View {
         return index;
     }
 
-    public void lockToGroove() {
+    private void lockToGroove() {
         // Not manually swiping
         if(!swipeVelocity.active) {
             Handler han = new Handler();
+            han.removeCallbacks(lockToGrooveRunnable);
             han.postDelayed(lockToGrooveRunnable, (long)(1000/frameRate));
         }
     }
 
-    public double getLockedRadians() {
+    private double getLockedRadians() {
         // Lock to the nearest lockAtRadians
         double lockAtRadians = Math.PI * 2 / fortuneItems.size();
         double targetOffset = radianOffset;
@@ -388,5 +393,52 @@ public class FortuneView extends View {
             targetOffset -= diff;
         }
         return targetOffset;
+    }
+
+    public void setSelectedItem(int index) {
+        if(index < 0 || index >= fortuneItems.size() || index == getSelectedIndex())
+            return;
+
+        // Find the needed offset for the icon
+        double targetOffset = positionOnWheel(index);
+
+
+        // Find offset from the current position
+        double offset = targetOffset - (radianOffset % (Math.PI * 2));
+        double velocity;
+        if(offset > Math.PI) {
+            offset -= Math.PI * 2;
+            velocity =  -Math.sqrt(Math.abs(2*friction*offset));
+        } else if(offset > 0) {
+            velocity =  Math.sqrt(Math.abs(2*friction*offset));
+        } else if(offset < -Math.PI && offset > -Math.PI * 2){
+            offset += Math.PI * 2;
+            velocity = Math.sqrt(Math.abs(2 * friction * offset));
+        } else if(offset < -Math.PI * 2){
+            offset += Math.PI * 2;
+            velocity = -Math.sqrt(Math.abs(2 * friction * offset));
+        } else {
+            velocity = -Math.sqrt(Math.abs(2 * friction * offset));
+        }
+
+        swipeVelocity.velocity = velocity;
+
+
+        startFling();
+
+
+    }
+
+    // Returns the position of the notch for an index
+    private double positionOnWheel(int index) {
+        double total = 0;
+        for(int i = 0 ; i < index; i ++) {
+            total -= fortuneItems.get(i).value/getTotalValue() * Math.PI * 2;
+        }
+        return total;
+    }
+
+    public int getTotalItems() {
+        return fortuneItems.size();
     }
 }
