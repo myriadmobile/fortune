@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 /**
  * Created by cclose on 9/3/14.
@@ -39,28 +40,43 @@ public class FortuneItem {
         this.value = value;
     }
 
-    public double drawItem(Canvas canvas, double radius, double radians, float totalValue, float sizeMultipler) {
+    public double drawItem(Canvas canvas, double radius, double radians, float totalValue, float sizeMultipler, float miniumSize) {
 
         double incrementRadians = Math.PI * 2 * (value/totalValue);
 
         double circum = Math.PI * radius * 2;
         double dialogalSize = circum * (value/totalValue);
         double radAspect = Math.atan(image.getHeight()/(double)image.getWidth());
-        int imageSizeX = (int)(dialogalSize * Math.cos(radAspect) * sizeMultipler);
+        int imageNewWidth = (int)(dialogalSize * Math.cos(radAspect) * sizeMultipler);
+
+        // Is the imagewidth to big?
+        if(radius > (canvas.getHeight() > canvas.getWidth() ? canvas.getWidth() : canvas.getHeight())/2) {
+            // Radius is to big!
+            double diff = radius - ((canvas.getHeight() > canvas.getWidth() ? canvas.getWidth() : canvas.getHeight())/2);
+            Log.d("Radius Bigger", "Diff: " + diff);
+
+            if(imageNewWidth - diff * 2 < imageNewWidth * miniumSize) {
+                imageNewWidth = imageNewWidth/2;
+                radius = ((canvas.getHeight() > canvas.getWidth() ? canvas.getWidth() : canvas.getHeight())/2);
+            } else {
+                imageNewWidth -= diff * 2;
+                radius = ((canvas.getHeight() > canvas.getWidth() ? canvas.getWidth() : canvas.getHeight())/2);
+            }
+        }
 
         if(type == DialItemType.Image) {
             // Center of circle placement
-            int centerX = (int) (Math.cos(radians) * (radius - imageSizeX/2));
-            int centerY = (int) (Math.sin(radians) * (radius - imageSizeX/2));
+            int centerX = (int) (Math.cos(radians) * (radius - imageNewWidth/2));
+            int centerY = (int) (Math.sin(radians) * (radius - imageNewWidth/2));
 
-            int bmpCenterX = imageSizeX / 2;
-            int bmpCenterY = imageSizeX * (image.getHeight() / image.getWidth()) / 2;
+            int bmpCenterX = imageNewWidth / 2;
+            int bmpCenterY = imageNewWidth * (image.getHeight() / image.getWidth()) / 2;
 
             matrix.reset();
             if(hinge == HingeType.Fixed) {
                 matrix.postRotate((float)(radians / Math.PI * 180), image.getWidth()/2, image.getHeight()/2);
             }
-            matrix.postScale(imageSizeX / (float) image.getWidth(), imageSizeX / (float) image.getWidth());
+            matrix.postScale(imageNewWidth / (float) image.getWidth(), imageNewWidth / (float) image.getWidth());
             matrix.postTranslate(canvas.getWidth() / 2 + centerX - bmpCenterX, canvas.getHeight() / 2 + centerY - bmpCenterY);
 
 

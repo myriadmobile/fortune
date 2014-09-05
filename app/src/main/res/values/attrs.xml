@@ -9,6 +9,7 @@
         <attr name="flingable" format="boolean"/>
         <attr name="grooves" format="boolean"/>
         <attr name="unselectScaleOffset" format="float"/>
+        <attr name="selectScaleOffset" format="float"/>
         <attr name="notch" format="integer"/>
         <attr name="distanceScale" format="float"/>
         <attr name="centripetalPercent" format="float"/>
@@ -19,6 +20,7 @@
         </attr>
         <attr name="backgroundScale" format="float"/>
         <attr name="backgroundCentripetalForce" format="boolean"/>
+        <attr name="minimumSize" format="float"/>
     </declare-styleable>
 
 

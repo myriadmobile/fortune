@@ -6,8 +6,11 @@
 
     <com.myriadmobile.fortune.FortuneView
         android:id="@+id/dialView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        custom:unselectScaleOffset=".8"/>
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        custom:unselectScaleOffset=".8"
+        custom:selectScaleOffset="1.2"
+        custom:centripetalPercent="-.25"/>
 
 </FrameLayout>

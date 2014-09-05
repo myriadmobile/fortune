@@ -38,12 +38,14 @@ public class FortuneView extends View {
     public boolean grooves = true; // Locks at correct angles
     public int notch = 90; // Where the notch is located in degrees
     public float unselectScaleOffset = .8f; // Scale offset of unselected icons
+    public float selectScaleOffset = 1f; // Scale offset of the selected icons
     public float distanceScale = 1; // Float from 0 - 1 (should be) to decide how close to the edge the icons show
     public float centripetalPercent = .25f; // Float from 0 - distancePercent amount of Centripetal force affects you
     public int backgroundResourceId = -1; // Resource id of the background
     public float backgroundScale = 1; // Scale of the background image
     public boolean backgroundCentripetalForce = false;  // Does centripetal force act on the background
-    public FortuneItem.HingeType backgroundHinge = FortuneItem.HingeType.Fixed;
+    public FortuneItem.HingeType backgroundHinge = FortuneItem.HingeType.Fixed; // Background hinge
+    public float minimumSize = .5f;
 
 
     Canvas mCanvas;
@@ -64,6 +66,7 @@ public class FortuneView extends View {
             flingable = a.getBoolean(R.styleable.FortuneView_flingable, true);
             grooves = a.getBoolean(R.styleable.FortuneView_grooves, true);
             unselectScaleOffset = a.getFloat(R.styleable.FortuneView_unselectScaleOffset, 1f);
+            selectScaleOffset = a.getFloat(R.styleable.FortuneView_selectScaleOffset, 1f);
             notch = a.getInteger(R.styleable.FortuneView_notch, 90);
             distanceScale = a.getFloat(R.styleable.FortuneView_distanceScale, 1);
             centripetalPercent = a.getFloat(R.styleable.FortuneView_centripetalPercent, .25f);
@@ -75,6 +78,7 @@ public class FortuneView extends View {
             }
             backgroundScale = a.getFloat(R.styleable.FortuneView_backgroundScale, 1);
             backgroundCentripetalForce = a.getBoolean(R.styleable.FortuneView_backgroundCentripetalForce, false);
+            minimumSize = a.getFloat(R.styleable.FortuneView_minimumSize, .5f);
         } finally {
             a.recycle();
         }
@@ -147,8 +151,7 @@ public class FortuneView extends View {
         double rad = radius * (distanceScale - centripitalForceAmount);
         for(int i = 0 ; i < fortuneItems.size(); i ++) {
             // Draw dialItem
-            radians = fortuneItems.get(i).drawItem(canvas, rad  * unselectScaleOffset, radians, getTotalValue(), (i == getSelectedIndex() ? 1f/unselectScaleOffset : 1f));
-
+            radians = fortuneItems.get(i).drawItem(canvas, rad, radians, getTotalValue(), (i == getSelectedIndex() ? selectScaleOffset : unselectScaleOffset), minimumSize);
         }
 
         // Notify Listener
