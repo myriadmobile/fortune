@@ -42,11 +42,10 @@ public class SwipeController {
         this.spinSensitivity = spinSensitivity;
     }
 
-    public void clear() {
-        start = 0;
-        end = 0;
-    }
-
+    /**
+     * Calculates the percentage the centripetal force acts on wheel
+     * @return 0-1 where 0 is no force and 1 is max force
+     */
     public float getCentripetalPercent() {
         float velo = (float)Math.abs(velocity);
         if(velo == 0)
@@ -56,23 +55,36 @@ public class SwipeController {
         return 1;
     }
 
+    /**
+     * @return The wheels offset from 0 (not from a notch or starting position)
+     */
     public double getRadianOffset() {
         return radianOffset;
     }
 
+    /**
+     * This is to set the total items which is used in calculating the location of grooves
+     * @param totalItems total items in the list
+     */
     public void setTotalItems(int totalItems) {
         this.totalItems = totalItems;
     }
 
-    public boolean handleUserEvent(MotionEvent event, Canvas canvas) {
+    /**
+     * The work horse of the class, This calculates all user input with the Swipe Controller
+     * @param event touch event
+     * @param width width of the touchable surface
+     * @param height height of the touchable surface
+     * @return
+     */
+    public boolean handleUserEvent(MotionEvent event, double width, double height) {
 
-        double diffX = event.getX() - canvas.getWidth()/2;
-        double diffY = event.getY() - canvas.getHeight()/2;
+        double diffX = event.getX() - width/2;
+        double diffY = event.getY() - height/2;
         double radianNew = Math.atan(Math.abs(diffY/diffX));
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                // Are you already calculating a finger?
                 removeAllMotion();
                 radianStart = radianNew;
                 lastOffset = radianOffset;
@@ -110,6 +122,12 @@ public class SwipeController {
         return false;
     }
 
+    /**
+     * Flings the wheel to a position in radians on the wheel if there is no
+     * user input
+     * @param targetOffset radian target
+     * @return
+     */
     public boolean flingToRadians(double targetOffset) {
         // Only works if the user is not touching it
         if(!userActive) {
@@ -142,6 +160,9 @@ public class SwipeController {
         return userActive;
     }
 
+    /**
+     * Starts the calculation of flinging
+     */
     private void startFling() {
         // Not manually swiping
         if(!userActive) {
@@ -153,7 +174,9 @@ public class SwipeController {
         }
     }
 
-    // Fling
+    /**
+     * Runnable in charge of flinging the wheel
+     */
     Runnable flingRunnable = new Runnable() {
         @Override
         public void run() {
@@ -175,7 +198,11 @@ public class SwipeController {
         }
     };
 
+    /**
+     * This will lock to the nearest groove
+     */
     public void lockToGroove() {
+        removeAllMotion();
         // Not manually swiping
         if(!userActive) {
             if(lockToGrooveHandler == null)
@@ -186,6 +213,10 @@ public class SwipeController {
         }
     }
 
+    /**
+     * Runnable in charge of locking to a groove
+     * this is currently linear interpolation
+     */
     Handler lockToGrooveHandler = new Handler();
     Runnable lockToGrooveRunnable = new Runnable() {
         @Override
@@ -208,6 +239,11 @@ public class SwipeController {
         }
     };
 
+    /**
+     * UTIL function to add recent touch inputs
+     * @param time
+     * @param offset
+     */
     private void addFlingPoint(long time, double offset) {
         points[end] = new FlingPoint(time, offset);
         end ++;
@@ -222,7 +258,18 @@ public class SwipeController {
         }
     }
 
-    // Rad per second
+    /**
+     * Clears the cicular queue array for recent touch inputs
+     */
+    private void clear() {
+        start = 0;
+        end = 0;
+    }
+
+    /**
+     * calculates the velocity of the recent touch inputs
+     * @return velocity in radians per second
+     */
     private double calculateFlingVelocity() {
         int endIndex = end - 1;
         if(endIndex < 0)
@@ -235,7 +282,10 @@ public class SwipeController {
         return velocity;
     }
 
-    // Slow down velocity based on friction
+    /**
+     * Applys friction to the velocity
+     * @return amount the wheel should move during that frame
+     */
     private double slowVelocityDown() {
         if(velocity > 0)
             velocity -= friction / frameRate;
@@ -245,6 +295,9 @@ public class SwipeController {
         return velocity / frameRate;
     }
 
+    /**
+     * Class to contain recent touch event data
+     */
     public class FlingPoint {
         public long time;
         public double offset;
@@ -254,18 +307,23 @@ public class SwipeController {
         }
     }
 
+    /**
+     * removes all movement on the wheel
+     * includes flinging and locking to a groove
+     */
     private void removeAllMotion() {
         velocity = 0;
         // Fling
-        if(flingHandler != null)
+        if (flingHandler != null)
             flingHandler.removeCallbacks(flingRunnable);
         // Lock to groove
-        if(lockToGrooveHandler != null)
+        if (lockToGrooveHandler != null)
             lockToGrooveHandler.removeCallbacks(lockToGrooveRunnable);
     }
 
-
-
+    /**
+     * @return the nearest groove in radians
+     */
     private double getLockedRadians() {
         // Lock to the nearest lockAtRadians
         double lockAtRadians = Math.PI * 2 / totalItems;

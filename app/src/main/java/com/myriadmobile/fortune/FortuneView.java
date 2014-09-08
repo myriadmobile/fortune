@@ -174,12 +174,15 @@ public class FortuneView extends View implements RedrawListener{
     public boolean onTouchEvent(MotionEvent event) {
 
         if(mCanvas != null) {
-            if(swipeController.handleUserEvent(event, mCanvas))
+            if(swipeController.handleUserEvent(event, mCanvas.getWidth(), mCanvas.getHeight()))
                 return true;
         }
         return super.onTouchEvent(event);
     }
 
+    /**
+     * @return the currently selected index on the wheel
+     */
     public int getSelectedIndex() {
         if(fortuneItems.size() == 0)
             return 0;
@@ -196,6 +199,10 @@ public class FortuneView extends View implements RedrawListener{
         return index;
     }
 
+    /**
+     * Moves the wheel to the index IF user is not interacting with wheel
+     * @param index index of the fortune item
+     */
     public void setSelectedItem(int index) {
         if(index < 0 || index >= fortuneItems.size() || index == getSelectedIndex())
             return;
@@ -205,10 +212,16 @@ public class FortuneView extends View implements RedrawListener{
 
     }
 
+    /**
+     * @return total items in the fortune items list
+     */
     public int getTotalItems() {
         return fortuneItems.size();
     }
 
+    /**
+     * @return the total amount of value in the wheel
+     */
     private float getTotalValue() {
         float total = 0;
         for(FortuneItem di : fortuneItems)
@@ -216,7 +229,10 @@ public class FortuneView extends View implements RedrawListener{
         return total;
     }
 
-    // Returns the position of the notch for an index
+    /**
+     * @param index of wheel
+     * @return the poisition in radians of that notch(not including notch start)
+     */
     private double positionOnWheel(int index) {
         double total = 0;
         for(int i = 0 ; i < index; i ++) {
