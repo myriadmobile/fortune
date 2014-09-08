@@ -6,13 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.myriadmobile.fortune.paths.CirclePath;
+import com.myriadmobile.fortune.paths.CustomPath;
+import com.myriadmobile.fortune.paths.OvalPath;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +30,7 @@ public class FortuneView extends View implements RedrawListener{
     Matrix matrix = new Matrix();
     SwipeController swipeController;
     Canvas mCanvas;
+    CustomPath path = new CirclePath();
 
     // Settings
     private double spinSensitivity = 1; // Multipler for spin speed. ie .5, half the speed of finger
@@ -46,7 +49,6 @@ public class FortuneView extends View implements RedrawListener{
     private boolean backgroundCentripetalForce = false;  // Does centripetal force act on the background
     public FortuneItem.HingeType backgroundHinge = FortuneItem.HingeType.Fixed; // Background hinge
     private float minimumSize = .5f; // Minimun size of a view
-
 
     public FortuneView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -67,7 +69,7 @@ public class FortuneView extends View implements RedrawListener{
             selectScaleOffset = a.getFloat(R.styleable.FortuneView_selectScaleOffset, 1f);
             notch = a.getInteger(R.styleable.FortuneView_notch, 90);
             distanceScale = a.getFloat(R.styleable.FortuneView_distanceScale, 1);
-            centripetalPercent = a.getFloat(R.styleable.FortuneView_centripetalPercent, .25f);
+            centripetalPercent = a.getFloat(R.styleable.FortuneView_centripetalPercent, 0f);
             backgroundResourceId = a.getResourceId(R.styleable.FortuneView_background, -1);
             if(a.getInteger(R.styleable.FortuneView_backgroundHinge, 0) == 0) {
                 backgroundHinge = FortuneItem.HingeType.Fixed;
@@ -150,10 +152,10 @@ public class FortuneView extends View implements RedrawListener{
         }
 
         // Apply centripital force
-        double rad = radius * (distanceScale - centripitalForceAmount);
         for(int i = 0 ; i < fortuneItems.size(); i ++) {
+            double rad = (path.getRadiusAtRadians(radians) * (distanceScale - centripitalForceAmount)) * radius;
             // Draw dialItem
-            radians = fortuneItems.get(i).drawItem(canvas, rad, radians, getTotalValue(), (i == getSelectedIndex() ? selectScaleOffset : unselectScaleOffset), minimumSize);
+            radians = fortuneItems.get(i).drawItem(canvas, rad, radians, getTotalValue(), (i == getSelectedIndex() ? selectScaleOffset : unselectScaleOffset), minimumSize, path.sizeBasedOnRadius());
         }
 
         // Notify Listener
@@ -219,6 +221,10 @@ public class FortuneView extends View implements RedrawListener{
         return fortuneItems.size();
     }
 
+    public void setCustomPath(CustomPath path) {
+        this.path = path;
+    }
+
     /**
      * @return the total amount of value in the wheel
      */
@@ -240,8 +246,5 @@ public class FortuneView extends View implements RedrawListener{
         }
         return total;
     }
-
-
-
 
 }

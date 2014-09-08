@@ -40,11 +40,16 @@ public class FortuneItem {
         this.value = value;
     }
 
-    public double drawItem(Canvas canvas, double radius, double radians, float totalValue, float sizeMultipler, float miniumSize) {
+    public double drawItem(Canvas canvas, double radius, double radians, float totalValue, float sizeMultipler, float miniumSize, boolean sizeBasedOnRadius) {
 
         double incrementRadians = Math.PI * 2 * (value/totalValue);
 
-        double circum = Math.PI * radius * 2;
+        double circum;
+        if(sizeBasedOnRadius) {
+            circum = Math.PI * radius * 2;
+        } else {
+            circum = Math.PI * canvas.getWidth();
+        }
         double dialogalSize = circum * (value/totalValue);
         double radAspect = Math.atan(image.getHeight()/(double)image.getWidth());
         int imageNewWidth = (int)(dialogalSize * Math.cos(radAspect) * sizeMultipler);
@@ -54,7 +59,6 @@ public class FortuneItem {
         if(radius > (canvas.getHeight() > canvas.getWidth() ? canvas.getWidth() : canvas.getHeight())/2) {
             // Radius is to big!
             double diff = radius - ((canvas.getHeight() > canvas.getWidth() ? canvas.getWidth() : canvas.getHeight())/2);
-            Log.d("Radius Bigger", "Diff: " + diff);
 
             if(imageNewWidth - diff * 2 < imageNewWidth * miniumSize) {
                 imageNewWidth = imageNewWidth/2;

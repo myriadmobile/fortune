@@ -57,6 +57,7 @@ public class ExampleActivity extends Activity {
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_5)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_6)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_7)));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_8)));
 
         /*
         dis.add(new DialItem(Color.BLACK, 1));
