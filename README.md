@@ -21,6 +21,7 @@ Main Features
 + Grooves or Notchs that allow the user to snap to a certain item
 + Deeply customizable from image placement and hinge types to applying centripetal forces
 + Easy public functions and listeners to know and tell the wheel what to do
++ Define a custom path instead of just a circle
 
 ### Customizable UI Experience
 
@@ -35,7 +36,6 @@ GIF Coming Soon!
 
 + Sectional items like pie graphs
 + Item Overflow (When more fortune items exists than the ability to show on the screen)
-+ Custom paths instead of just circular
 
 ![Fortune](https://github.com/myriadmobile/fortune/raw/master/res/fortune.png)
 
