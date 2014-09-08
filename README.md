@@ -35,6 +35,7 @@ GIF Coming Soon!
 
 + Sectional items like pie graphs
 + Item Overflow (When more fortune items exists than the ability to show on the screen)
++ Custom paths instead of just circular
 
 ![Fortune](https://github.com/myriadmobile/fortune/raw/master/res/fortune.png)
 
