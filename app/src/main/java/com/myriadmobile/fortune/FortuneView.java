@@ -174,6 +174,7 @@ public class FortuneView extends View {
     double lastOffset;
     SwipeVelocity swipeVelocity = new SwipeVelocity();
 
+    Handler flingHandler;
     Runnable flingRunnable = new Runnable() {
         @Override
         public void run() {
@@ -200,9 +201,11 @@ public class FortuneView extends View {
     private void startFling() {
         // Not manually swiping
         if(!swipeVelocity.active) {
-            Handler han = new Handler();
-            han.removeCallbacks(flingRunnable);
-            han.postDelayed(flingRunnable, (long)(1000/frameRate));
+            if(flingHandler == null)
+                flingHandler = new Handler();
+            else
+                flingHandler.removeCallbacks(flingRunnable);
+            flingHandler.postDelayed(flingRunnable, (long)(1000/frameRate));
         }
     }
 
@@ -266,7 +269,7 @@ public class FortuneView extends View {
     public class SwipeVelocity {
 
         public boolean active;
-        public double velocity;
+        private double velocity;
         private int start = 0;
         private int end = 0;
         private FlingPoint[] points = new FlingPoint[10];
@@ -332,8 +335,19 @@ public class FortuneView extends View {
                 return velo/10f;
             return 1;
         }
+
+
     }
 
+    private void removeAllMotion() {
+        swipeVelocity.velocity = 0;
+        // Fling
+        flingHandler.removeCallbacks(flingRunnable);
+        // Lock to groove
+        lockToGrooveHandler.removeCallbacks(lockToGrooveRunnable);
+    }
+
+    Handler lockToGrooveHandler = new Handler();
     Runnable lockToGrooveRunnable = new Runnable() {
         @Override
         public void run() {
@@ -376,9 +390,11 @@ public class FortuneView extends View {
     private void lockToGroove() {
         // Not manually swiping
         if(!swipeVelocity.active) {
-            Handler han = new Handler();
-            han.removeCallbacks(lockToGrooveRunnable);
-            han.postDelayed(lockToGrooveRunnable, (long)(1000/frameRate));
+            if(lockToGrooveHandler == null)
+                lockToGrooveHandler = new Handler();
+            else
+                lockToGrooveHandler.removeCallbacks(lockToGrooveRunnable);
+            lockToGrooveHandler.postDelayed(lockToGrooveRunnable, (long)(1000/frameRate));
         }
     }
 
@@ -398,6 +414,9 @@ public class FortuneView extends View {
     public void setSelectedItem(int index) {
         if(index < 0 || index >= fortuneItems.size() || index == getSelectedIndex())
             return;
+
+        // Remove all other runnables affecting the wheel
+        removeAllMotion();
 
         // Find the needed offset for the icon
         double targetOffset = positionOnWheel(index);
@@ -421,12 +440,9 @@ public class FortuneView extends View {
             velocity = -Math.sqrt(Math.abs(2 * friction * offset));
         }
 
+        // Start Flinging
         swipeVelocity.velocity = velocity;
-
-
         startFling();
-
-
     }
 
     // Returns the position of the notch for an index
