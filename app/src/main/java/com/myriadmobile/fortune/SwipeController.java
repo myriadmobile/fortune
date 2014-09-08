@@ -14,7 +14,7 @@ public class SwipeController {
     // Settings
     private double velocityClamp;
     private double friction;
-    private int frameRate;
+    private double frameRate;
     private RedrawListener redrawListener;
     private boolean grooves;
     private boolean flingable;
@@ -202,7 +202,6 @@ public class SwipeController {
      * This will lock to the nearest groove
      */
     public void lockToGroove() {
-        removeAllMotion();
         // Not manually swiping
         if(!userActive) {
             if(lockToGrooveHandler == null)
