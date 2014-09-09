@@ -1,16 +1,14 @@
 package com.myriadmobile.fortune.paths;
 
-import android.util.Log;
-
 /**
  * Created by cclose on 9/8/14.
  */
-public class OvalPath extends CustomPath {
+public class OvalWheelPath extends CustomWheelPath {
 
     double A = 1;
     double B = 1;
 
-    public OvalPath(double A, double B) {
+    public OvalWheelPath(double A, double B) {
         this.A = A;
         this.B = B;
     }

@@ -10,9 +10,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.myriadmobile.fortune.paths.CirclePath;
-import com.myriadmobile.fortune.paths.CustomPath;
-import com.myriadmobile.fortune.paths.OvalPath;
+import com.myriadmobile.fortune.paths.CircleWheelPath;
+import com.myriadmobile.fortune.paths.CustomWheelPath;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class FortuneView extends View implements RedrawListener{
     Matrix matrix = new Matrix();
     SwipeController swipeController;
     Canvas mCanvas;
-    CustomPath path = new CirclePath();
+    CustomWheelPath path = new CircleWheelPath();
 
     // Settings
     private double spinSensitivity = 1; // Multipler for spin speed. ie .5, half the speed of finger
@@ -221,7 +220,7 @@ public class FortuneView extends View implements RedrawListener{
         return fortuneItems.size();
     }
 
-    public void setCustomPath(CustomPath path) {
+    public void setCustomPath(CustomWheelPath path) {
         this.path = path;
     }
 
