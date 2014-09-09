@@ -42,7 +42,7 @@ public class FortuneView extends View implements RedrawListener{
     private float unselectScaleOffset = .8f; // Scale offset of unselected icons
     private float selectScaleOffset = 1f; // Scale offset of the selected icons
     private float distanceScale = 1; // Float from 0 - 1 (should be) to decide how close to the edge the icons show
-    private float centripetalPercent = .25f; // Float from 0 - distancePercent amount of Centripetal force affects you
+    private float centripetalPercent = .25f; // Float from -.5 - distancePercent amount of Centripetal force affects you
     private int backgroundResourceId = -1; // Resource id of the background
     private float backgroundScale = 1; // Scale of the background image
     private boolean backgroundCentripetalForce = false;  // Does centripetal force act on the background
