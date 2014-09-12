@@ -52,8 +52,7 @@ Have you found a bug? We'd sincerely appreciate an issue opened with as much det
 Contributors
 -------
 ### Lead
-[![CloseCommit](https://avatars3.githubusercontent.com/u/8660493?v=2&s=460)]
-(https://github.com/CloseCommit)
+[CloseCommit](https://github.com/CloseCommit)
 
 Would you like to contribute? Fork us and send a pull request! Be sure to checkout our issues first.
 
@@ -71,7 +70,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Myriad Mobile -- www.myriadmobile.com
+Copyright (c) 2014 Myriad Mobile, www.myriadmobile.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
