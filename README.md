@@ -35,21 +35,33 @@ Documentation
 
 Dependencies
 -------
+Currently, this is not available elsewhere. You'll need to work some crafty Git magic or copy & paste the project in order to take advantage of it.
 
 Roadmap
 -------
-## Planned Features
-+ Sectional items like pie graphs
+## For The Future
++ Sector drawing and coloring, like pie graphs
 + Item Overflow (When more fortune items exists than the ability to show on the screen)
++ Maven Central artifact
+
 
 Bugs and Feedback
 -------
+Have you found a bug? We'd sincerely appreciate an issue opened with as much detail as possible about the problem. Additionally, if you have a rad idea for a feature, tweak, or configurable aspect, create an issue! We'd love to hear from you. Fair warning: we may not agree the feature or tweak is a rad idea and close the issue, in which case you should maintain your own fork with your own changes.
 
 Contributors
 -------
+### Lead
+[![CloseCommit](https://avatars3.githubusercontent.com/u/8660493?v=2&s=460)]
+(https://github.com/CloseCommit)
+
+Would you like to contribute? Fork us and send a pull request! Be sure to checkout our issues first.
 
 FAQ
 -------
+> Why Fortune?
+
+It's like wheel of fortune. The wheel part.
 
 
 ![Fortune](https://github.com/myriadmobile/fortune/raw/master/res/fortune.png)
@@ -59,7 +71,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Myriad Mobile
+Copyright (c) 2014 Myriad Mobile -- www.myriadmobile.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
