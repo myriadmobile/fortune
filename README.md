@@ -1,4 +1,4 @@
-![Fortune](https://github.com/myriadmobile/fortune/raw/master/res/fortune_banner.png)
+![Fortune](res/fortune_banner.png)
 
 Introduction
 -------
@@ -6,6 +6,8 @@ Introduction
 Fortune is a view that allows Android to implement a wheel like selector.  This view includes
 customizable attributes which allows Fortune to be adaptable to many use cases.
 This is an elegant and user friendly selector that gives a new user experience.
+
+![screenshot](res/screenshot.png)
 
 Features
 -------
@@ -63,7 +65,7 @@ FAQ
 It's like wheel of fortune. The wheel part.
 
 
-![Fortune](https://github.com/myriadmobile/fortune/raw/master/res/fortune.png)
+![Fortune](res/fortune.png)
 
 License
 -------
