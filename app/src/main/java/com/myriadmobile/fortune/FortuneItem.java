@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
 
 /**
  * Created by cclose on 9/3/14.
@@ -14,8 +13,8 @@ public class FortuneItem {
 
     public Bitmap image;
     public int color;
-    public enum DialItemType {Image, Section};
-    public enum HingeType {Fixed, Hinged};
+    public enum DialItemType {Image, Section}
+    public enum HingeType {Fixed, Hinged}
     public DialItemType type;
     public HingeType hinge = HingeType.Hinged;
     public float value;
