@@ -1,6 +1,5 @@
 package com.myriadmobile.fortune;
 
-import android.graphics.Canvas;
 import android.os.Handler;
 import android.view.MotionEvent;
 

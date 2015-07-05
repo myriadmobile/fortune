@@ -3,9 +3,7 @@ package com.myriadmobile.fortune.example;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.myriadmobile.fortune.FortuneItem;
 import com.myriadmobile.fortune.FortuneView;
@@ -26,29 +24,29 @@ public class ExampleActivity extends Activity {
 
         fortuneView = (FortuneView) findViewById(R.id.dialView);
 
-        ArrayList<FortuneItem> dis = new ArrayList<FortuneItem>();
-        /*
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_always_landscape_portrait)));
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_add)));
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_agenda)));
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_camera)));
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_compass)));
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_help)));
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_mapmode)));
-        dis.add(new DialItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_save)));
-        */
+        ArrayList<FortuneItem> dis = new ArrayList<>();
 
-        /*
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_always_landscape_portrait), FortuneItem.HingeType.Fixed));
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_add), FortuneItem.HingeType.Fixed));
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_agenda), FortuneItem.HingeType.Fixed));
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_camera), FortuneItem.HingeType.Fixed));
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_compass), FortuneItem.HingeType.Fixed));
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_help), FortuneItem.HingeType.Fixed));
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_mapmode), FortuneItem.HingeType.Fixed));
-        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_save), FortuneItem.HingeType.Fixed));
-        */
+        // Create a wheel with the various graphics
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_always_landscape_portrait)));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_add)));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_agenda)));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_camera)));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_compass)));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_help)));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_mapmode)));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_save)));
 
+        // Create a wheel with the various graphics
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_always_landscape_portrait), FortuneItem.HingeType.Fixed));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_add), FortuneItem.HingeType.Fixed));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_agenda), FortuneItem.HingeType.Fixed));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_camera), FortuneItem.HingeType.Fixed));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_compass), FortuneItem.HingeType.Fixed));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_help), FortuneItem.HingeType.Fixed));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_mapmode), FortuneItem.HingeType.Fixed));
+//        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), android.R.drawable.ic_menu_save), FortuneItem.HingeType.Fixed));
+
+        // Create a numbered wheel with the values 0 to 9
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_0)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_1)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_2)));
@@ -58,18 +56,18 @@ public class ExampleActivity extends Activity {
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_6)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_7)));
         dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_8)));
+        dis.add(new FortuneItem(BitmapFactory.decodeResource(getResources(), R.drawable.image_9)));
 
-        /*
-        dis.add(new DialItem(Color.BLACK, 1));
-        dis.add(new DialItem(Color.BLUE, 1));
-        dis.add(new DialItem(Color.RED, 1));
-        dis.add(new DialItem(Color.GREEN, 1));
-        dis.add(new DialItem(Color.MAGENTA, 1));
-        */
+        // Create a wheel with colored text values
+//        dis.add(new FortuneItem(Color.BLACK, 1));
+//        dis.add(new FortuneItem(Color.BLUE, 1));
+//        dis.add(new FortuneItem(Color.RED, 1));
+//        dis.add(new FortuneItem(Color.GREEN, 1));
+//        dis.add(new FortuneItem(Color.MAGENTA, 1));
 
         fortuneView.addFortuneItems(dis);
 
-        ((Button)findViewById(R.id.btRandom)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btRandom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Random ran = new Random();

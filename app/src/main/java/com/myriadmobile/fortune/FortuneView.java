@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class FortuneView extends View implements RedrawListener{
 
-    private ArrayList<FortuneItem> fortuneItems = new ArrayList<FortuneItem>();
+    private ArrayList<FortuneItem> fortuneItems = new ArrayList<>();
 
     double radius;
     GrooveListener grooveListener;
